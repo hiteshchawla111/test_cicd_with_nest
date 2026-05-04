@@ -16,6 +16,9 @@ jobs:
       - name: Run DOCKER CONTAINER
         run: docker run -d -p 5005:5005 devops-demo
 
+      - name: Wait for the container to be ready
+        run: sleep 5
+
       - name: Test the application
         run: curl http://localhost:5005
 
