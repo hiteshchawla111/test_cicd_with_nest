@@ -10,12 +10,29 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v6
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v6
-        with:
-          node-version: 20
-      - name: Install dependencies
-        run: npm install
+      - name: Build DOCKER IMAGE
+        run: docker build -t devops-demo .
 
-      - name: Build the application
-        run: npm run build
+      - name: Run DOCKER CONTAINER
+        run: docker run -p 5005:5005 devops-demo
+
+      - name: Test the application
+        run: curl http://localhost:5005
+
+      - name: SUCCESS
+        if: success()
+        run: echo "Docker container is running on port 5005"
+
+      - name: FAILURE
+        if: failure()
+        run: echo "Docker container is not running on port 5005"
+
+      # - name: Set up Node.js
+      #   uses: actions/setup-node@v6
+      #   with:
+      #     node-version: 20
+      # - name: Install dependencies
+      #   run: npm install
+
+      # - name: Build the application
+      #   run: npm run build
