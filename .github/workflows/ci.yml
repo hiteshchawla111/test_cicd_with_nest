@@ -14,7 +14,7 @@ jobs:
         run: docker build -t devops-demo .
 
       - name: Run DOCKER CONTAINER
-        run: docker run -p 5005:5005 devops-demo
+        run: docker run -d -p 5005:5005 devops-demo
 
       - name: Test the application
         run: curl http://localhost:5005
